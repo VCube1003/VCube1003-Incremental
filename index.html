@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -21,6 +21,18 @@
   <div id="dpc">Corn price: $1</div>
   <div id="dpc_upgrade">Marketing: Increase demand to increase the price of corn by $0.25</div>
   <button onclick=buyMarketing()>Buy Marketing</button>
+</br> </br>
+  <button onclick=prestige_function() id="prestige" hidden>Prestige for 1 prestige point</button>
+  <div id="next_prestige" hidden>Next prestige point at $40000</div>
+  <div id="ppcount" hidden>Prestige Points: 0</div>
+  <div class="prestige_upgrades" id="puclass" hidden>
+    <h3>Prestige upgrades:</h3>
+    <p id="pu1_count">Multiplier: Simply doubles your corn/sec (1x -> 2x)</p>
+    <button id="upgrade1" onclick=pu1()>
+      Buy Multiplier (0/5)
+    </button> 
+    <p id="pu1_cost">Cost: 1 PP</p>
+  </div>
 </body>
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 </html>
