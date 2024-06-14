@@ -1,4 +1,4 @@
-var balance = 10000
+var balance = 10
 var corn_price = 1
 var land_cost = 10
 var land_power = 1
