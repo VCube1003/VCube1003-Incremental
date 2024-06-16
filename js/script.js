@@ -38,13 +38,13 @@ function GUIupdate(){
   document.getElementById("u2_cost").textContent = "Cost: $" + Math.round(u2_amt[1]*100)/100
   document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "/x → " + Math.round(100*(pu1_amt[2] + 0.7))/100 + "x)"
   document.getElementById("buy_pu1").textContent = "Buy upgrade (" + Math.round(pu1_amt[0]*100)/100 + "/5)"
-  document.getElementById("pu1_cost").textContent = "Cost: $" + Math.round(pu1_amt[1]*100)/100
+  document.getElementById("pu1_cost").textContent = "Cost: " + Math.round(pu1_amt[1]*100)/100 + "PP"
   document.getElementById("pu2_text").textContent = "More Upgrades: Increases upgrade cap (" + Math.round(pu2_amt[2]*100)/100 + " → " + Math.round(100*(pu2_amt[2] + 2))/100 + ")"
   document.getElementById("buy_pu2").textContent = "Buy upgrade (" + Math.round(pu2_amt[0]*100)/100 + "/5)"
-  document.getElementById("pu2_cost").textContent = "Cost: $" + Math.round(pu2_amt[1]*100)/100
+  document.getElementById("pu2_cost").textContent = "Cost: " + Math.round(pu2_amt[1]*100)/100 + "PP"
   document.getElementById("pu3_text").textContent = "Quicker Start: Start all prestiges with $10000"
   document.getElementById("buy_pu3").textContent = "Buy upgrade (" + Math.round(pu3_amt[0]*100)/100 + "/1)"
-  document.getElementById("pu3_cost").textContent = "Cost: $" + Math.round(pu3_amt[1]*100)/100
+  document.getElementById("pu3_cost").textContent = "Cost: " + Math.round(pu3_amt[1]*100)/100 + "PP"
 }
 
 function statsUpdate(){
