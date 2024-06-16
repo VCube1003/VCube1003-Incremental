@@ -32,9 +32,19 @@
   <button onclick=prestige_function() id="prestige" hidden>Prestige for 1 prestige point</button>
   <div id="next_prestige" hidden>Next prestige point at $4000000</div>
   <div id="ppcount" hidden>Prestige Points: 0</div>
+  </br>
   <div class="prestige_upgrades" id="puclass" hidden>
-    <p>Prestige upgrades coming out in 5 hours</p>
-  </div>
+    <h3> Prestige Upgrades: </h3>
+    <div id="pu1_text">Genetic Modifications II: Increases crop yield (1x → 1.7x)</div>
+    <button onclick=pu1() id="buy_pu1">Purchase Upgrade (0/5)</button>
+    <div id="pu1_cost">Cost: 1 PP</div>
+    <div id="pu2_text">More Upgardes: Increase upgrade cap (5 → 7)
+    <button onclick=pu2() id="buy_pu2">Purchase Upgrade (0/5)</button>
+    <div id="pu2_cost">Cost: 3 PP</div>
+    <div id="pu3_text">Quicker Start: Start all prestiges with $10000</button>
+    <button onclick=pu4() id="buy_pu4">Purchase Upgrade (0/1)</button>
+    <div id="pu3_cost">Cost: 20 PP</div>
+    </div>
 </body>
 <script src="js/script.js"></script>
 </html>
