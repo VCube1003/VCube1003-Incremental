@@ -11,7 +11,7 @@ var pp = 0
 var u1_amt = [0, 10000, 1]
 var u2_amt = [0, 50000, 0.25]
 var pu1_amt = [0, 1, 1]
-var pu2_amt = [0, 3, 5]
+var pu2_amt = [0, 1, 5]
 var pu3_amt = [0, 20, 10]
 
 setInterval(GUIupdate, 50)
@@ -36,7 +36,7 @@ function GUIupdate(){
   document.getElementById("u2_text").textContent = "Better Marketing: Increased corn price gain per marketing ($" + Math.round(u2_amt[2]*100)/100 + " → $" + Math.round(100*(u2_amt[2] + 0.15))/100 + ")"
   document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/5)"
   document.getElementById("u2_cost").textContent = "Cost: $" + Math.round(u2_amt[1]*100)/100
-  document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "/x → " + Math.round(100*(pu1_amt[2] + 0.7))/100 + "x)"
+  document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "/x → " + Math.round(100*(pu1_amt[2] + 1))/100 + "x)"
   document.getElementById("buy_pu1").textContent = "Buy upgrade (" + Math.round(pu1_amt[0]*100)/100 + "/5)"
   document.getElementById("pu1_cost").textContent = "Cost: " + Math.round(pu1_amt[1]*100)/100 + " PP"
   document.getElementById("pu2_text").textContent = "More Upgrades: Increases upgrade cap (" + Math.round(pu2_amt[2]*100)/100 + " → " + Math.round(100*(pu2_amt[2] + 2))/100 + ")"
@@ -121,7 +121,7 @@ function pu1(){
     pp -= pu1_amt[1]
     pu1_amt[0] += 1
     pu1_amt[1] = Math.round(((pu1_amt[0]+1)**2))
-    pu1_amt[2] += 0.7
+    pu1_amt[2] += 1
   }
 }
 
