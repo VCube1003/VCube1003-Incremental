@@ -74,7 +74,7 @@ function prestige_function(){
     land = 0
     marketing_cost = 50
     dps = 0 
-    marketing = 1
+    marketing = 0
     u1_amt = [0, 10000, 1]
     u2_amt = [0, 50000, 0.25]
   }
