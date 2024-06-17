@@ -1,4 +1,4 @@
-var balance = 10
+var balance = 10**6
 var corn_price = 1
 var land_cost = 10
 var land_power = 1
@@ -7,7 +7,7 @@ var land = 0
 var marketing_cost = 50
 var dps = 0
 var marketing = 0
-var pp = 0
+var pp = 10000
 var u1_amt = [0, 10000, 1]
 var u2_amt = [0, 50000, 0.25]
 var pu1_amt = [0, 1, 1]
@@ -57,7 +57,8 @@ function GUIupdate(){
 function statsUpdate(){
   cps = land*land_power*u1_amt[2]*pu1_amt[2]
   dps = cps*corn_price
-  corn_price = 1+u2_amt[2]*marketing
+  // corn_price = 1+u2_amt[2]*marketing
+  corn_price = 0.01
   u1_amt[2] = 1 + 0.7*u1_amt[0]*pu11_amt[2]
   u2_amt[2] = 0.25 + 0.15*u2_amt[0]*pu11_amt[2]
 }
@@ -70,6 +71,16 @@ function updateBalance(){
     ppcount.removeAttribute("hidden")
     puclass.removeAttribute("hidden")
   }
+}
+
+function open_farm(){
+  farm.removeAttribute("hidden")
+  upg.setAttribute("hidden", true)
+}
+
+function open_upgrades(){
+  farm.setAttribute("hidden", true)
+  upg.removeAttribute("hidden")
 }
 
 function prestige_function(){
