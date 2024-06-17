@@ -77,7 +77,7 @@ function prestige_function(){
     pp += Math.floor(Math.sqrt(balance/1000000))
     balance = pu3_amt[2]
     corn_price = 1
-    land_cost = 10
+    land_cost = 10/pu12_amt[2]
     land_power = 1
     cps = 0
     land = 0
