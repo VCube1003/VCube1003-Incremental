@@ -1,4 +1,4 @@
-var balance = 10**6
+var balance = 10
 var corn_price = 1
 var land_cost = 10
 var land_power = 1
@@ -7,7 +7,7 @@ var land = 0
 var marketing_cost = 50
 var dps = 0
 var marketing = 0
-var pp = 300000
+var pp = 0
 var u1_amt = [0, 10000, 1]
 var u2_amt = [0, 50000, 0.25]
 var pu1_amt = [0, 1, 1]
