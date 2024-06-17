@@ -31,10 +31,10 @@ function GUIupdate(){
   document.getElementById("next_prestige").textContent = "Next prestige point at $" + ((Math.floor(Math.sqrt(balance/1000000))+1)**2*1000000)
   document.getElementById("ppcount").textContent = "Prestige Points: " + pp
   document.getElementById("u1_text").textContent = "Genetic Modifications: Increases crop yield (" + Math.round(u1_amt[2]*100)/100 + "x → " + Math.round(100*(u1_amt[2] + 0.7))/100 + "x)"
-  document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/5)"
+  document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + pu2_amt[2] + ")"
   document.getElementById("u1_cost").textContent = "Cost: $" + Math.round(u1_amt[1]*100)/100
   document.getElementById("u2_text").textContent = "Better Marketing: Increased corn price gain per marketing ($" + Math.round(u2_amt[2]*100)/100 + " → $" + Math.round(100*(u2_amt[2] + 0.15))/100 + ")"
-  document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/5)"
+  document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/" + pu2_amt[2] + ")"
   document.getElementById("u2_cost").textContent = "Cost: $" + Math.round(u2_amt[1]*100)/100
   document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "x → " + Math.round(100*(pu1_amt[2] + 1.4))/100 + "x)"
   document.getElementById("buy_pu1").textContent = "Buy upgrade (" + pu1_amt[0] + "/5)"
