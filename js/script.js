@@ -57,8 +57,7 @@ function GUIupdate(){
 function statsUpdate(){
   cps = land*land_power*u1_amt[2]*pu1_amt[2]
   dps = cps*corn_price
-  // corn_price = 1+u2_amt[2]*marketing
-  corn_price = 0.01
+  corn_price = 1+u2_amt[2]*marketing
   u1_amt[2] = 1 + 0.7*u1_amt[0]*pu11_amt[2]
   u2_amt[2] = 0.25 + 0.15*u2_amt[0]*pu11_amt[2]
 }
