@@ -1,4 +1,4 @@
-var balance = 10
+var balance = 10**6
 var corn_price = 1
 var land_cost = 10
 var land_power = 1
@@ -7,7 +7,7 @@ var land = 0
 var marketing_cost = 50
 var dps = 0
 var marketing = 0
-var pp = 0
+var pp = 300000
 var u1_amt = [0, 10000, 1]
 var u2_amt = [0, 50000, 0.25]
 var pu1_amt = [0, 1, 1]
@@ -24,7 +24,7 @@ setInterval(statsUpdate, 50)
 function GUIupdate(){
   document.getElementById("balance").textContent = "Balance: $" + num_format(Math.round(balance*100)/100)
   document.getElementById("dps").textContent = "$/sec: " + num_format(Math.round(dps*100)/100)
-  document.getElementById("land").textContent = "Land: " + land + " (Cost: $" + num_format(Math.round(land_cost*100)/100) + ")"
+  document.getElementById("land").textContent = "Land: " + land + " (Cost: $" + num_format(Math.round(land_cost*10000)/10000) + ")"
   document.getElementById("land_power").textContent = "Each land produces " + num_format(Math.round(land_power*u1_amt[2]*100)/100) + " corn per second"
   document.getElementById("multiplier").textContent = "Multiplier: " + num_format(land_power)
   document.getElementById("cps").textContent = "Corn/sec: " + num_format(Math.round(cps*100)/100)
@@ -81,7 +81,7 @@ function prestige_function(){
     land_power = 1
     cps = 0
     land = 0
-    marketing_cost = 50
+    marketing_cost = 50/pu12_amt[2]
     dps = 0 
     marketing = 0
     u1_amt = [0, 10000, 1]
@@ -96,12 +96,7 @@ function buyLand(){
     }
     balance -= land_cost
     land += 1
-    if (land_cost*1.4 > 0.01){
-      land_cost = Math.round(land_cost*140)/100
-    }
-    else{
-      land_cost = Math.round(land_cost*14000)/10000
-    }
+    land_cost = Math.round(land_cost*14000)/10000
   }
 }
 
@@ -171,7 +166,12 @@ function pu12(){
     pu12_amt[2] *= 5
     land_cost /= 5
     marketing_cost /= 5
-    land_cost = Math.round(land_cost*100)/100
+    if (land_cost > 0.01){
+      land_cost = Math.round(land_cost*100)/100
+    }
+    else{
+      land_cost = Math.round(land_cost*10000)/10000
+    }
     marketing_cost = Math.round(marketing_cost*100)/100
   }
 }
