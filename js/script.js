@@ -27,7 +27,7 @@ var c1 = [false, 0, 10**6, 1]
 var uII_unlocked = false
 
 setInterval(GUIupdate, 50)
-setInterval(updateBalance, 1000)
+setInterval(updateBalance, 100)
 setInterval(statsUpdate, 50)
 
 function GUIupdate(){
@@ -110,7 +110,7 @@ function statsUpdate(){
 }
 
 function updateBalance(){
-  balance += dps
+  balance += dps/10
   if (balance >= 1000000){
     prestige_unlocked = true
   }
