@@ -41,7 +41,13 @@
   <div id="u2_cost">Cost: $50000</div>
   </br>
   <div class="upgrades_II" id="uIIclass" hidden>
-    <div>Upgrades II coming out in 5 hours</div>
+    <h3>Upgrades II:</h3>
+    <div id="u11_text">Better Multiplier: Increases multiplier per 7 lands (2x → 2.1x)</div>
+    <button onclick=u11() id="buy_u11">Purchase Upgrade (0/4)</button>
+    <div id="u11_cost">Cost: $500 T</div>
+    <div id="u12_text">Better Cost Scaling: Reduce cost increase multiplier for land and marketing (1.4x → 1.38x)</div>
+    <button onclick=u12() id="buy_u12">Purchase Upgrade (0/4)</button>
+    <div id="u12_cost">Cost: $3 Qa</div>
   </div>
   <div class="prestige_upgrades" id="puclass" hidden>
     <h3> Prestige Upgrades: </h3>
@@ -70,6 +76,18 @@
     <div>Unlock the first challenge</div>
     <button onclick=c1_unlock()>Unlock</button>
     <div>Cost: 10K PP</div>
+    <div>Unlock Prestige Upgrades III</div>
+    <button onclick=puIII_unlock()>Unlock</button>
+    <div>Cost: 5M PP</div>
+  </div>
+  <div class="prestige_upgrades_III" id="pu3class" hidden>
+    <h3> Prestige Upgrades III: </h3>
+    <div id="pu21_text">Genetic Modifications III: Increases crop yield (1x → 3.1x)</div>
+    <button id="buy_pu21" onclick=pu21()>Buy Upgrade (0/5)</button>
+    <div id="pu21_cost">Cost: 5M PP</div>
+    <div id="pu22_text">Even More Upgrades: Increases cap of Upgrades I (15 → 25)</div>
+    <button id="buy_pu22" onclick=pu22()>Buy Upgrade (0/5)</button>
+    <div id="pu22_cost">Cost: 5M PP</div>
   </div>
 </div>  
 
