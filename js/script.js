@@ -15,7 +15,11 @@ var pu2_amt = [0, 1, 5]
 var pu3_amt = [0, 15, 10]
 var pu11_amt = [0, 50, 1]
 var pu12_amt = [0, 50, 1]
+var prestige_unlocked = false
 var puII_unlocked = false
+var c1_unlocked = false
+var c1 = [false, 0, 10**6, 1]
+var uII_unlocked = false
 
 setInterval(GUIupdate, 50)
 setInterval(updateBalance, 1000)
@@ -36,7 +40,7 @@ function GUIupdate(){
   document.getElementById("u1_text").textContent = "Genetic Modifications: Increases crop yield (" + Math.round(u1_amt[2]*100)/100 + "x → " + Math.round(100*(u1_amt[2] + 0.7*pu11_amt[2]))/100 + "x)"
   document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + pu2_amt[2] + ")"
   document.getElementById("u1_cost").textContent = "Cost: $" + num_format(Math.round(u1_amt[1]*100)/100)
-  document.getElementById("u2_text").textContent = "Better Marketing: Increased corn price gain per marketing ($" + Math.round(u2_amt[2]*100)/100 + " → $" + Math.round(100*(u2_amt[2] + 0.15*pu11_amt[2]))/100 + ")"
+  document.getElementById("u2_text").textContent = "Better Marketing: Increased corn price gain per marketing ($" + Math.round(u2_amt[2]*100)/100 + " → $" + Math.round(100*(u2_amt[2] + 0.15*pu11_amt[2]*c1[3]))/100 + ")"
   document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/" + pu2_amt[2] + ")"
   document.getElementById("u2_cost").textContent = "Cost: $" + num_format(Math.round(u2_amt[1]*100)/100)
   document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "x → " + Math.round(100*(pu1_amt[2] + 1.4))/100 + "x)"
@@ -52,38 +56,67 @@ function GUIupdate(){
   document.getElementById("pu12_text").textContent = "Black Friday: Reduce land and marketing costs (/" + Math.round(pu12_amt[2]*100)/100 + " → /" + Math.round(100*(pu12_amt[2] * 5))/100 + ")"
   document.getElementById("buy_pu12").textContent = "Buy upgrade (" + pu12_amt[0] + "/5)"
   document.getElementById("pu12_cost").textContent = "Cost: " + Math.round(pu12_amt[1]*100)/100 + " PP"
+  document.getElementById("c1_goal").textContent = "Goal: " + num_format(c1[2])
+  document.getElementById("c1_completions").textContent = "Completions: (" + c1[1] + "/5)"
+  document.getElementById("c1_reward").textContent = "Challenge Reward: Increase the power of the 'Better Marketing' upgrade (" + c1[3] + "x → " + Math.round((c1[3] + 1.4)*100)/100 + "x)"
 }
 
 function statsUpdate(){
   cps = land*land_power*u1_amt[2]*pu1_amt[2]
   dps = cps*corn_price
-  corn_price = 1+u2_amt[2]*marketing
+  if (c1[0] == true){
+    corn_price = 0.01
+  }
+  if (c1[0] == false){
+    corn_price = 1+u2_amt[2]*marketing
+  }
   u1_amt[2] = 1 + 0.7*u1_amt[0]*pu11_amt[2]
-  u2_amt[2] = 0.25 + 0.15*u2_amt[0]*pu11_amt[2]
+  u2_amt[2] = 0.25 + 0.15*u2_amt[0]*pu11_amt[2]*c1[3]
+  if (prestige_unlocked == true){
+    prestige.removeAttribute("hidden")
+    next_prestige.removeAttribute("hidden")
+    ppcount.removeAttribute("hidden")
+    puclass.removeAttribute("hidden")
+  }
+  if ((c1[0] == true) && (balance >= c1[2])){
+    c1[0] = false
+    c1[1] += 1
+    c1[2] *= 10
+    c1[3] += 1.4
+    document.getElementById("c1_enter").textContent = "Enter Challenge"
+    uII_unlocked = true
+    uIIclass.removeAttribute("hidden")
+    prestige_function()
+  }
 }
 
 function updateBalance(){
   balance += dps
   if (balance >= 1000000){
-    prestige.removeAttribute("hidden")
-    next_prestige.removeAttribute("hidden")
-    ppcount.removeAttribute("hidden")
-    puclass.removeAttribute("hidden")
+    prestige_unlocked = true
   }
 }
 
 function open_farm(){
   farm.removeAttribute("hidden")
   upg.setAttribute("hidden", true)
+  chal.setAttribute("hidden", true)
 }
 
 function open_upgrades(){
   farm.setAttribute("hidden", true)
   upg.removeAttribute("hidden")
+  chal.setAttribute("hidden", true)
 }
 
-function prestige_function(){
-  if (balance >= 1000000){
+function open_challenges() {
+  farm.setAttribute("hidden", true)
+  upg.setAttribute("hidden", true)
+  chal.removeAttribute("hidden")
+}
+
+function prestige_function(min=10**6){
+  if (balance >= min){
     pp += Math.floor(Math.sqrt(balance/1000000))
     balance = pu3_amt[2]
     corn_price = 1
@@ -191,6 +224,28 @@ function puII_unlock(){
     pp -= 69
     puII_unlocked == true
     pu2class.removeAttribute("hidden")
+  }
+}
+
+function c1_unlock(){
+  if ((pp >= 10000) && (c1_unlocked == false)){
+    pp -= 10000
+    c1_unlocked == true
+    c1class.removeAttribute("hidden")
+    chal_button.removeAttribute("hidden")
+  }
+}
+
+function enter_c1(){
+  if (c1[0] == false){
+    c1[0] = true
+    document.getElementById("c1_enter").textContent = "Exit Challenge"
+    prestige_function(0)
+  }
+  else if (c1[0] == true){
+    c1[0] = false
+    document.getElementById("c1_enter").textContent = "Enter Challenge"
+    prestige_function(0)
   }
 }
 
