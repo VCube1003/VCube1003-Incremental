@@ -257,7 +257,7 @@ function pu22(){
     pp -= pu22_amt[1]
     pu22_amt[0] += 1
     pu22_amt[1] = Math.round((pu22_amt[0]+1)**2*5000000)
-    pu22_amt[2] += 5
+    pu22_amt[2] += 10
   }
 }
 
