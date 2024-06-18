@@ -35,7 +35,7 @@ function GUIupdate(){
   document.getElementById("dps").textContent = "$/sec: " + num_format(Math.round(dps*100)/100)
   document.getElementById("land").textContent = "Land: " + land + " (Cost: $" + num_format(Math.round(land_cost*100)/100) + ")"
   document.getElementById("land_power").textContent = "Each land produces " + num_format(Math.round(land_power*u1_amt[2]*100)/100) + " corn per second"
-  document.getElementById("multiplier").textContent = "Multiplier: " + num_format(land_power)
+  document.getElementById("multiplier").textContent = "Multiplier: " + num_format(Math.round(land_power*100)/100)
   document.getElementById("cps").textContent = "Corn/sec: " + num_format(Math.round(cps*100)/100)
   document.getElementById("dpc").textContent = "Corn price: $" + Math.round(corn_price*100)/100
   document.getElementById("dpc_upgrade").textContent = "Marketing: Increase demand to increase the price of corn by $" + Math.round(100*u2_amt[2])/100 + " (Cost: $" + num_format(Math.round(marketing_cost*100)/100) + ")"
@@ -72,10 +72,10 @@ function GUIupdate(){
   document.getElementById("u12_cost").textContent = "Cost: $" + num_format(Math.round(u12_amt[1]*100)/100)
   document.getElementById("pu21_text").textContent = "Genetic Modifications III: Increases crop yield (" + pu21_amt[2] + "x → " + (pu21_amt[2] + 2.1) + "x)"
   document.getElementById("buy_pu21").textContent = "Buy upgrade (" + pu21_amt[0] + "/5)"
-  document.getElementById("pu21_cost").textContent = "Cost: " + Math.round(pu21_amt[1]*100)/100 + " PP"
-  document.getElementById("pu22_text").textContent = "Even More Upgrades: Increases cap of Upgrades I (" + (pu2_amt[2] + pu22_amt[2]) + " → " + (pu2_amt[2] + pu22_amt[2] + 10) + ")"
-  document.getElementById("buy_pu22").textContent = "Buy upgrade (" + pu2_amt[0] + "/5)"
-  document.getElementById("pu22_cost").textContent = "Cost: " + Math.round(pu22_amt[1]*100)/100 + " PP"
+  document.getElementById("pu21_cost").textContent = "Cost: " + num_format(Math.round(pu21_amt[1]*100)/100) + " PP"
+  document.getElementById("pu22_text").textContent = "Even More Upgrades: Increases cap of Upgrades I (" + Math.round(100*(pu2_amt[2] + pu22_amt[2]))/100 + " → " + Math.round(100*(pu2_amt[2] + pu22_amt[2] + 10))/100 + ")"
+  document.getElementById("buy_pu22").textContent = "Buy upgrade (" + pu22_amt[0] + "/5)"
+  document.getElementById("pu22_cost").textContent = "Cost: " + num_format(Math.round(pu22_amt[1]*100)/100) + " PP"
 }
 
 function statsUpdate(){
@@ -264,7 +264,7 @@ function pu22(){
 function puII_unlock(){
   if ((pp >= 69) && (puII_unlocked == false)){
     pp -= 69
-    puII_unlocked == true
+    puII_unlocked = true
     pu2class.removeAttribute("hidden")
   }
 }
@@ -272,7 +272,7 @@ function puII_unlock(){
 function puIII_unlock(){
   if ((pp >= 5*10**6) && (puIII_unlocked == false)){
     pp -= 5*10**6
-    puIII_unlocked == true
+    puIII_unlocked = true
     pu3class.removeAttribute("hidden")
   }
 }
@@ -280,7 +280,7 @@ function puIII_unlock(){
 function c1_unlock(){
   if ((pp >= 10000) && (c1_unlocked == false)){
     pp -= 10000
-    c1_unlocked == true
+    c1_unlocked = true
     c1class.removeAttribute("hidden")
     chal_button.removeAttribute("hidden")
   }
