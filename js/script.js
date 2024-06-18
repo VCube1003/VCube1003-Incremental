@@ -148,6 +148,8 @@ function prestige_function(min=10**6){
     marketing = 0
     u1_amt = [0, 10000, 1]
     u2_amt = [0, 50000, 0.25]
+    u11_amt = [0, (3*10**14), 2]
+    u12_amt = [0, (2*10**15), 1.4]
   }
 }
 
