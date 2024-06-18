@@ -15,8 +15,13 @@ var pu2_amt = [0, 1, 5]
 var pu3_amt = [0, 15, 10]
 var pu11_amt = [0, 50, 1]
 var pu12_amt = [0, 50, 1]
+var pu21_amt = [0, 5000000, 1]
+var pu22_amt = [0, 5000000, 0]
+var u11_amt = [0, (3*10**14), 2]
+var u12_amt = [0, (2*10**15), 1.4]
 var prestige_unlocked = false
 var puII_unlocked = false
+var puIII_unlocked = false
 var c1_unlocked = false
 var c1 = [false, 0, 10**6, 1]
 var uII_unlocked = false
@@ -28,25 +33,25 @@ setInterval(statsUpdate, 50)
 function GUIupdate(){
   document.getElementById("balance").textContent = "Balance: $" + num_format(Math.round(balance*100)/100)
   document.getElementById("dps").textContent = "$/sec: " + num_format(Math.round(dps*100)/100)
-  document.getElementById("land").textContent = "Land: " + land + " (Cost: $" + num_format(Math.round(land_cost*10000)/10000) + ")"
+  document.getElementById("land").textContent = "Land: " + land + " (Cost: $" + num_format(Math.round(land_cost*100)/100) + ")"
   document.getElementById("land_power").textContent = "Each land produces " + num_format(Math.round(land_power*u1_amt[2]*100)/100) + " corn per second"
   document.getElementById("multiplier").textContent = "Multiplier: " + num_format(land_power)
   document.getElementById("cps").textContent = "Corn/sec: " + num_format(Math.round(cps*100)/100)
   document.getElementById("dpc").textContent = "Corn price: $" + Math.round(corn_price*100)/100
-  document.getElementById("dpc_upgrade").textContent = "Marketing: Increase demand to increase the price of corn by $" + Math.round(100*u2_amt[2])/100 + " (Cost: $" + num_format(marketing_cost) + ")"
+  document.getElementById("dpc_upgrade").textContent = "Marketing: Increase demand to increase the price of corn by $" + Math.round(100*u2_amt[2])/100 + " (Cost: $" + num_format(Math.round(marketing_cost*100)/100) + ")"
   document.getElementById("prestige").textContent = "Prestige for " + num_format(Math.floor(Math.sqrt(balance/1000000))) + " prestige points"
   document.getElementById("next_prestige").textContent = "Next prestige point at $" + num_format(((Math.floor(Math.sqrt(balance/1000000))+1)**2*1000000))
   document.getElementById("ppcount").textContent = "Prestige Points: " + num_format(pp)
   document.getElementById("u1_text").textContent = "Genetic Modifications: Increases crop yield (" + Math.round(u1_amt[2]*100)/100 + "x → " + Math.round(100*(u1_amt[2] + 0.7*pu11_amt[2]))/100 + "x)"
-  document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + pu2_amt[2] + ")"
+  document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]) + ")"
   document.getElementById("u1_cost").textContent = "Cost: $" + num_format(Math.round(u1_amt[1]*100)/100)
   document.getElementById("u2_text").textContent = "Better Marketing: Increased corn price gain per marketing ($" + Math.round(u2_amt[2]*100)/100 + " → $" + Math.round(100*(u2_amt[2] + 0.15*pu11_amt[2]*c1[3]))/100 + ")"
-  document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/" + pu2_amt[2] + ")"
+  document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]) + ")"
   document.getElementById("u2_cost").textContent = "Cost: $" + num_format(Math.round(u2_amt[1]*100)/100)
   document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "x → " + Math.round(100*(pu1_amt[2] + 1.4))/100 + "x)"
   document.getElementById("buy_pu1").textContent = "Buy upgrade (" + pu1_amt[0] + "/5)"
   document.getElementById("pu1_cost").textContent = "Cost: " + Math.round(pu1_amt[1]*100)/100 + " PP"
-  document.getElementById("pu2_text").textContent = "More Upgrades: Increase upgrade cap (" + pu2_amt[2] + " → " + (pu2_amt[2] + 2) + ")"
+  document.getElementById("pu2_text").textContent = "More Upgrades: Increase upgrade cap (" + (pu22_amt[2] + pu2_amt[2]) + " → " + (pu22_amt[2] + pu2_amt[2] + 2) + ")"
   document.getElementById("buy_pu2").textContent = "Buy upgrade (" + pu2_amt[0] + "/5)"
   document.getElementById("pu2_cost").textContent = "Cost: " + Math.round(pu2_amt[1]*100)/100 + " PP"
   document.getElementById("buy_pu3").textContent = "Buy upgrade (" + pu3_amt[0] + "/1)"
@@ -59,10 +64,24 @@ function GUIupdate(){
   document.getElementById("c1_goal").textContent = "Goal: " + num_format(c1[2])
   document.getElementById("c1_completions").textContent = "Completions: (" + c1[1] + "/5)"
   document.getElementById("c1_reward").textContent = "Challenge Reward: Increase the power of the 'Better Marketing' upgrade (" + c1[3] + "x → " + Math.round((c1[3] + 1.4)*100)/100 + "x)"
+  document.getElementById("u11_text").textContent = "Better Multiplier: Increases multiplier per 7 lands (" + Math.round(u11_amt[2]*100)/100 + "x → " + Math.round(100*(u11_amt[2] + 0.1))/100 + "x)"
+  document.getElementById("buy_u11").textContent = "Buy upgrade (" + Math.round(u11_amt[0]*100)/100 + "/4)"
+  document.getElementById("u11_cost").textContent = "Cost: $" + num_format(Math.round(u11_amt[1]*100)/100)
+  document.getElementById("u12_text").textContent = "Better Cost Scaling: Reduce cost increase multiplier for land and marketing (" + Math.round(u12_amt[2]*100)/100 + "x → " + Math.round(100*(u12_amt[2] - 0.02))/100 + "x)"
+  document.getElementById("buy_u12").textContent = "Buy upgrade (" + Math.round(u12_amt[0]*100)/100 + "/4)"
+  document.getElementById("u12_cost").textContent = "Cost: $" + num_format(Math.round(u12_amt[1]*100)/100)
+  document.getElementById("pu21_text").textContent = "Genetic Modifications III: Increases crop yield (" + pu21_amt[2] + "x → " + (pu21_amt[2] + 2.1) + "x)"
+  document.getElementById("buy_pu21").textContent = "Buy upgrade (" + pu21_amt[0] + "/5)"
+  document.getElementById("pu21_cost").textContent = "Cost: " + Math.round(pu21_amt[1]*100)/100 + " PP"
+  document.getElementById("pu22_text").textContent = "Even More Upgrades: Increases cap of Upgrades I (" + (pu2_amt[2] + pu22_amt[2]) + " → " + (pu2_amt[2] + pu22_amt[2] + 10) + ")"
+  document.getElementById("buy_pu22").textContent = "Buy upgrade (" + pu2_amt[0] + "/5)"
+  document.getElementById("pu22_cost").textContent = "Cost: " + Math.round(pu22_amt[1]*100)/100 + " PP"
 }
 
 function statsUpdate(){
-  cps = land*land_power*u1_amt[2]*pu1_amt[2]
+  land_power = u11_amt[2]**(Math.floor(land/7))
+  land_cost = (10/pu12_amt[2])*(u12_amt[2]**land)
+  cps = land*land_power*u1_amt[2]*pu1_amt[2]*pu21_amt[2]
   dps = cps*corn_price
   if (c1[0] == true){
     corn_price = 0.01
@@ -134,12 +153,8 @@ function prestige_function(min=10**6){
 
 function buyLand(){
   if (balance >= land_cost){
-    if (land%7 == 6){
-      land_power *= 2
-    }
     balance -= land_cost
     land += 1
-    land_cost = Math.round(land_cost*14000)/10000
   }
 }
 
@@ -147,25 +162,40 @@ function buyMarketing(){
   if (balance >= marketing_cost){
     balance -= marketing_cost
     marketing += 1
-    marketing_cost = Math.round(marketing_cost*140)/100
+    marketing_cost *= u12_amt[2]
   }
 }
 
 function u1(){
-  if ((balance >= u1_amt[1]) && (u1_amt[0] < pu2_amt[2])){
+  if ((balance >= u1_amt[1]) && (u1_amt[0] < (pu2_amt[2]+pu22_amt[2]))){
     balance -= u1_amt[1]
     u1_amt[0] += 1
     u1_amt[1] = Math.round(((u1_amt[0]+1)**2.5)*10000)
   }
 }
 function u2(){
-  if ((balance >= u2_amt[1]) && (u2_amt[0] < pu2_amt[2])){
+  if ((balance >= u2_amt[1]) && (u2_amt[0] < (pu2_amt[2]+pu22_amt[2]))){
     balance -= u2_amt[1]
     u2_amt[0] += 1
     u2_amt[1] = Math.round(((u2_amt[0]+1)**2)*50000)
   }
 }
-
+function u11(){
+  if ((balance >= u11_amt[1]) && (u11_amt[0] < 4)){
+    balance -= u11_amt[1]
+    u11_amt[0] += 1
+    u11_amt[1] *= 4
+    u11_amt[2] += 0.1
+  }
+}
+function u12(){
+  if ((balance >= u12_amt[1]) && (u12_amt[0] < 4)){
+    balance -= u12_amt[1]
+    u12_amt[0] += 1
+    u12_amt[1] *= 4
+    u12_amt[2] -= 0.02
+  }
+}
 function pu1(){
   if ((pp >= pu1_amt[1]) && (pu1_amt[0] < 5)){
     pp -= pu1_amt[1]
@@ -209,13 +239,25 @@ function pu12(){
     pu12_amt[2] *= 5
     land_cost /= 5
     marketing_cost /= 5
-    if (land_cost > 0.01){
-      land_cost = Math.round(land_cost*100)/100
-    }
-    else{
-      land_cost = Math.round(land_cost*10000)/10000
-    }
     marketing_cost = Math.round(marketing_cost*100)/100
+  }
+}
+
+function pu21(){
+  if ((pp >= pu21_amt[1]) && (pu21_amt[0] < 5)){
+    pp -= pu21_amt[1]
+    pu21_amt[0] += 1
+    pu21_amt[1] = Math.round((pu21_amt[0]+1)**2*5000000)
+    pu21_amt[2] += 2.1
+  }
+}
+
+function pu22(){
+  if ((pp >= pu22_amt[1]) && (pu22_amt[0] < 5)){
+    pp -= pu22_amt[1]
+    pu22_amt[0] += 1
+    pu22_amt[1] = Math.round((pu22_amt[0]+1)**2*5000000)
+    pu22_amt[2] += 5
   }
 }
 
@@ -224,6 +266,14 @@ function puII_unlock(){
     pp -= 69
     puII_unlocked == true
     pu2class.removeAttribute("hidden")
+  }
+}
+
+function puIII_unlock(){
+  if ((pp >= 5*10**6) && (puIII_unlocked == false)){
+    pp -= 5*10**6
+    puIII_unlocked == true
+    pu3class.removeAttribute("hidden")
   }
 }
 
@@ -237,7 +287,7 @@ function c1_unlock(){
 }
 
 function enter_c1(){
-  if (c1[0] == false){
+  if ((c1[0] == false) && (c1[1] < 5)){
     c1[0] = true
     document.getElementById("c1_enter").textContent = "Exit Challenge"
     prestige_function(0)
