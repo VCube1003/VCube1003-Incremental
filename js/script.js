@@ -92,6 +92,7 @@ function load_save(){
 
 function GUIupdate(){
   document.getElementById("balance").textContent = "Balance: $" + num_format(Math.round(balance*100)/100)
+  document.getElementById("balance2").textContent = "Balance: $" + num_format(Math.round(balance*100)/100)
   document.getElementById("dps").textContent = "$/sec: " + num_format(Math.round(dps*100)/100)
   document.getElementById("land").textContent = "Land: " + land + " (Cost: $" + num_format(Math.round(land_cost*100)/100) + ")"
   document.getElementById("land_power").textContent = "Each land produces " + num_format(Math.round(land_power*u1_amt[2]*100)/100) + " corn per second"
@@ -102,6 +103,7 @@ function GUIupdate(){
   document.getElementById("prestige").textContent = "Prestige for " + num_format(Math.floor(Math.sqrt(balance/1000000))) + " prestige points"
   document.getElementById("next_prestige").textContent = "Next prestige point at $" + num_format(((Math.floor(Math.sqrt(balance/1000000))+1)**2*1000000))
   document.getElementById("ppcount").textContent = "Prestige Points: " + num_format(pp)
+  document.getElementById("pp2").textContent = "Prestige Points: " + num_format(pp)
   document.getElementById("u1_text").textContent = "Genetic Modifications: Increases crop yield (" + Math.round(u1_amt[2]*100)/100 + "x → " + Math.round(100*(u1_amt[2] + 0.7*pu11_amt[2]))/100 + "x)"
   document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]) + ")"
   document.getElementById("u1_cost").textContent = "Cost: $" + num_format(Math.round(u1_amt[1]*100)/100)
