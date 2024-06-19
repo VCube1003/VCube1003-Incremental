@@ -169,6 +169,9 @@ function statsUpdate(){
     c1class.removeAttribute("hidden")
     chal_button.removeAttribute("hidden")
   }
+  if (uII_unlocked == true){
+    uIIclass.removeAttribute("hidden")
+  }
   if ((c1[0] == true) && (balance >= c1[2])){
     c1[0] = false
     c1[1] += 1
