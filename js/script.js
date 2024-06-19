@@ -30,6 +30,66 @@ setInterval(GUIupdate, 50)
 setInterval(updateBalance, 100)
 setInterval(statsUpdate, 50)
 
+function save_game(){
+  localStorage.setItem("balance", balance);
+  localStorage.setItem("corn_price", corn_price);
+  localStorage.setItem("land_cost", land_cost);
+  localStorage.setItem("land_power", land_power);
+  localStorage.setItem("cps", cps);
+  localStorage.setItem("land", land);
+  localStorage.setItem("marketing_cost", marketing_cost);
+  localStorage.setItem("dps", dps);
+  localStorage.setItem("marketing", marketing);
+  localStorage.setItem("pp", pp);
+  localStorage.setItem("u1_amt", JSON.stringify(u1_amt));
+  localStorage.setItem("u2_amt", JSON.stringify(u2_amt));
+  localStorage.setItem("pu1_amt", JSON.stringify(pu1_amt));
+  localStorage.setItem("pu2_amt", JSON.stringify(pu2_amt));
+  localStorage.setItem("pu3_amt", JSON.stringify(pu3_amt));
+  localStorage.setItem("pu11_amt", JSON.stringify(pu11_amt));
+  localStorage.setItem("pu12_amt", JSON.stringify(pu12_amt));
+  localStorage.setItem("pu21_amt", JSON.stringify(pu21_amt));
+  localStorage.setItem("pu22_amt", JSON.stringify(pu22_amt));
+  localStorage.setItem("u11_amt", JSON.stringify(u11_amt));
+  localStorage.setItem("u12_amt", JSON.stringify(u12_amt));
+  localStorage.setItem("prestige_unlocked", prestige_unlocked);
+  localStorage.setItem("puII_unlocked", puII_unlocked);
+  localStorage.setItem("puIII_unlocked", puIII_unlocked);
+  localStorage.setItem("c1_unlocked", c1_unlocked);
+  localStorage.setItem("c1", JSON.stringify(c1));
+  localStorage.setItem("uII_unlocked", uII_unlocked);
+}
+
+function load_save(){
+  balance = Number(localStorage.getItem("balance"));
+  corn_price = Number(localStorage.getItem("corn_price"));
+  land_cost = Number(localStorage.getItem("land_cost"));
+  land_power = Number(localStorage.getItem("land_power"));
+  cps = Number(localStorage.getItem("cps"));
+  land = Number(localStorage.getItem("land"));
+  marketing_cost = Number(localStorage.getItem("marketing_cost"));
+  dps = Number(localStorage.getItem("dps"));
+  marketing = Number(localStorage.getItem("marketing")); 
+  pp = Number(localStorage.getItem("pp"));
+  u1_amt = JSON.parse(localStorage.getItem("u1_amt"));
+  u2_amt = JSON.parse(localStorage.getItem("u2_amt"));
+  pu1_amt = JSON.parse(localStorage.getItem("pu1_amt"));
+  pu2_amt = JSON.parse(localStorage.getItem("pu2_amt"));
+  pu3_amt = JSON.parse(localStorage.getItem("pu3_amt"));
+  pu11_amt = JSON.parse(localStorage.getItem("pu11_amt"));
+  pu12_amt = JSON.parse(localStorage.getItem("pu12_amt"));
+  pu21_amt = JSON.parse(localStorage.getItem("pu21_amt"));
+  pu22_amt = JSON.parse(localStorage.getItem("pu22_amt"));
+  u11_amt = JSON.parse(localStorage.getItem("u11_amt"));
+  u12_amt = JSON.parse(localStorage.getItem("u12_amt"));
+  prestige_unlocked = (localStorage.getItem("prestige_unlocked") === 'true');
+  puII_unlocked = (localStorage.getItem("puII_unlocked") === 'true');
+  puIII_unlocked = (localStorage.getItem("puIII_unlocked") === 'true');
+  c1_unlocked = (localStorage.getItem("c1_unlocked") === 'true');
+  c1 = JSON.parse(localStorage.getItem("c1"));
+  uII_unlocked = (localStorage.getItem("uII_unlocked") === 'true');
+}
+
 function GUIupdate(){
   document.getElementById("balance").textContent = "Balance: $" + num_format(Math.round(balance*100)/100)
   document.getElementById("dps").textContent = "$/sec: " + num_format(Math.round(dps*100)/100)
@@ -96,6 +156,16 @@ function statsUpdate(){
     next_prestige.removeAttribute("hidden")
     ppcount.removeAttribute("hidden")
     puclass.removeAttribute("hidden")
+  }
+  if (puII_unlocked == true){
+    pu2class.removeAttribute("hidden")
+  }
+  if (puIII_unlocked == true){
+    pu3class.removeAttribute("hidden")
+  }
+  if (c1_unlocked == true){
+    c1class.removeAttribute("hidden")
+    chal_button.removeAttribute("hidden")
   }
   if ((c1[0] == true) && (balance >= c1[2])){
     c1[0] = false
@@ -267,7 +337,6 @@ function puII_unlock(){
   if ((pp >= 69) && (puII_unlocked == false)){
     pp -= 69
     puII_unlocked = true
-    pu2class.removeAttribute("hidden")
   }
 }
 
@@ -275,7 +344,6 @@ function puIII_unlock(){
   if ((pp >= 5*10**6) && (puIII_unlocked == false)){
     pp -= 5*10**6
     puIII_unlocked = true
-    pu3class.removeAttribute("hidden")
   }
 }
 
@@ -283,8 +351,6 @@ function c1_unlock(){
   if ((pp >= 10000) && (c1_unlocked == false)){
     pp -= 10000
     c1_unlocked = true
-    c1class.removeAttribute("hidden")
-    chal_button.removeAttribute("hidden")
   }
 }
 
