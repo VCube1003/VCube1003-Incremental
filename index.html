@@ -10,6 +10,7 @@
 <button onclick=open_farm()>Farm</button>
 <button onclick=open_upgrades()>Upgrades</button>
 <button onclick=open_challenges() hidden id="chal_button">Challenges</button>
+<button onclick=open_perks() hidden id="perk_button">Perks</button>
 <button onclick=save_game()>Save game</button>
 <button onclick=load_save()>Load save</button>
 </br></br>
@@ -104,7 +105,21 @@
     <div id="c1_completions">Completions: 0/5</div>
     <div id="c1_reward">Challenge Reward: Increase the power of the "Better Marketing" upgrade (1x → 2.4x)</div>
     <div>First tier completion reward: Unlock Upgrades II</div>
+    <div>Fourth tier completion reward: Unlock Challenge II</div>
   </div>
+  <div class="challenge_2" id="c2class" hidden>
+    <h3>Challenge II:</h3>
+    <div>Venezuela: Everything costs 100000x as much</div>
+    <button onclick=enter_c2() id="c2_enter">Enter Challenge</button>
+    <div id="c2_goal">Goal: ?</div>
+    <div id="c2_completions">Completions: 0/5</div>
+    <div id="c2_reward">Challenge Reward: Increase the power of all three of the "Genetic Modifications" upgrade (1x → 1.5x)</div>
+    <div>Second tier completion reward: Unlock Perks</div>
+  </div>
+</div>
+
+<div class="all_perks" id="perks" hidden>
+  <p>Coming in 5 hours</p>
 </div>
 </body>
 <script src="js/script.js"></script>
