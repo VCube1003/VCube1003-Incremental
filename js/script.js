@@ -28,6 +28,7 @@ var uII_unlocked = false
 var c2_unlocked = false
 var c2 = [false, 0, 10**7, 1, 1]
 var perks_unlocked = false
+var perks = [[0, 0, 10**11], [0, 1, 2], [0, 1, 2], [0, 0, 50]]
 
 setInterval(GUIupdate, 50)
 setInterval(updateBalance, 100)
@@ -63,6 +64,8 @@ function save_game(){
   localStorage.setItem("uII_unlocked", uII_unlocked);
   localStorage.setItem("c2", JSON.stringify(c2))
   localStorage.setItem("c2_unlocked", c2_unlocked)
+  localStorage.setItem("perks_unlocked", perks_unlocked)
+  localStorage.setItem("perks", JSON.stringify(perks))
 }
 
 function load_save(){
@@ -95,6 +98,8 @@ function load_save(){
   uII_unlocked = loadVariable("uII_unlocked", false);
   c2 = loadVariable("c2", [false, 0, 10**7, 1, 1])
   c2_unlocked = loadVariable("c2_unlocked", false)
+  perks_unlocked = loadVariable("perks_unlocked", false)
+  perks = loadVariable("perks", [[0, 0, 10**11], [0, 1, 2], [0, 1, 2], [0, 0, 100]])
 }
 
 function loadVariable(key, defaultValue) {
@@ -123,16 +128,16 @@ function GUIupdate(){
   document.getElementById("multiplier").textContent = "Multiplier: " + num_format(Math.round(land_power*100)/100)
   document.getElementById("cps").textContent = "Corn/sec: " + num_format(Math.round(cps*100)/100)
   document.getElementById("dpc").textContent = "Corn price: $" + Math.round(corn_price*100)/100
-  document.getElementById("dpc_upgrade").textContent = "Marketing: Increase demand to increase the price of corn by $" + Math.round(100*u2_amt[2])/100 + " (Cost: $" + num_format(Math.round(marketing_cost*100)/100) + ")"
+  document.getElementById("dpc_upgrade").textContent = "Marketing: Increase demand to increase the price of corn by $" + (Math.round(100*u2_amt[2])/100)*perks[2][1] + " (Cost: $" + num_format(Math.round(marketing_cost*100)/100) + ")"
   document.getElementById("prestige").textContent = "Prestige for " + num_format(Math.floor(Math.sqrt(balance/1000000))) + " prestige points"
   document.getElementById("next_prestige").textContent = "Next prestige point at $" + num_format(((Math.floor(Math.sqrt(balance/1000000))+1)**2*1000000))
   document.getElementById("ppcount").textContent = "Prestige Points: " + num_format(pp)
   document.getElementById("pp2").textContent = "Prestige Points: " + num_format(pp)
   document.getElementById("u1_text").textContent = "Genetic Modifications: Increases crop yield (" + Math.round(u1_amt[2]*100)/100 + "x → " + Math.round(100*(u1_amt[2] + 0.7*pu11_amt[2]*c2[3]))/100 + "x)"
-  document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]) + ")"
+  document.getElementById("buy_u1").textContent = "Buy upgrade (" + Math.round(u1_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]+perks[3][1]) + ")"
   document.getElementById("u1_cost").textContent = "Cost: $" + num_format(Math.round(u1_amt[1]*100)/100)
   document.getElementById("u2_text").textContent = "Better Marketing: Increased corn price gain per marketing ($" + Math.round(u2_amt[2]*100)/100 + " → $" + Math.round(100*(u2_amt[2] + 0.15*pu11_amt[2]*c1[3]))/100 + ")"
-  document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]) + ")"
+  document.getElementById("buy_u2").textContent = "Buy upgrade (" + Math.round(u2_amt[0]*100)/100 + "/" + (pu2_amt[2]+pu22_amt[2]+perks[3][1]) + ")"
   document.getElementById("u2_cost").textContent = "Cost: $" + num_format(Math.round(u2_amt[1]*100)/100)
   document.getElementById("pu1_text").textContent = "Genetic Modifications II: Increases crop yield (" + Math.round(pu1_amt[2]*100)/100 + "x → " + Math.round(100*(pu1_amt[2] + 1.4*c2[3]))/100 + "x)"
   document.getElementById("buy_pu1").textContent = "Buy upgrade (" + pu1_amt[0] + "/5)"
@@ -165,6 +170,14 @@ function GUIupdate(){
   document.getElementById("pu22_text").textContent = "Even More Upgrades: Increases cap of Upgrades I (" + Math.round(100*(pu2_amt[2] + pu22_amt[2]))/100 + " → " + Math.round(100*(pu2_amt[2] + pu22_amt[2] + 10))/100 + ")"
   document.getElementById("buy_pu22").textContent = "Buy upgrade (" + pu22_amt[0] + "/5)"
   document.getElementById("pu22_cost").textContent = "Cost: " + num_format(Math.round(pu22_amt[1]*100)/100) + " PP"
+  document.getElementById("perk_cost").textContent = "Cost: " + num_format(perks[0][2]) + " PP"
+  document.getElementById("p1_text").textContent = "Genetic Engineering - Increases crop yield (" + perks[1][1] + "x → " + (perks[1][1]+2) + "x)"
+  document.getElementById("p2_text").textContent = "Better Ads - Increases marketing power (" + perks[2][1] + "x → " + (perks[2][1]+2) + "x)"
+  document.getElementById("p3_text").textContent = "More Upgrades - Increases upgrade cap (" + (pu2_amt[2]+pu22_amt[2]+perks[3][1]) + " → " + (pu2_amt[2]+pu22_amt[2]+perks[3][1]+100) + ")"
+  document.getElementById("p1_spent").textContent = "Perks Spent: " + perks[1][0]
+  document.getElementById("p2_spent").textContent = "Perks Spent: " + perks[2][0]
+  document.getElementById("p3_spent").textContent = "Perks Spent: " + perks[3][0]
+  document.getElementById("unspent_perks").textContent = "Unspent Perks: " + perks[0][0]
 }
 
 function statsUpdate(){
@@ -173,15 +186,21 @@ function statsUpdate(){
   marketing_cost = (50/pu12_amt[2])*(u12_amt[2]**marketing)*c2[4]
   u1_amt[1] = Math.round(((u1_amt[0]+1)**2.5)*10000)*c2[4]
   u2_amt[1] = Math.round(((u2_amt[0]+1)**2)*50000)*c2[4]
+  if (u1_amt[0] > pu2_amt[2]+pu22_amt[2]+perks[3][1]){
+    u1_amt[0] = pu2_amt[2]+pu22_amt[2]+perks[3][1]
+  }
+  if (u2_amt[0] > pu2_amt[2]+pu22_amt[2]+perks[3][1]){
+    u2_amt[0] = pu2_amt[2]+pu22_amt[2]+perks[3][1]
+  }
   u11_amt[1] = 4**u11_amt[0]*3*10**14*c2[4]
   u12_amt[1] = 4**u12_amt[0]*2*10**15*c2[4]
-  cps = land*land_power*u1_amt[2]*pu1_amt[2]*pu21_amt[2]
+  cps = land*land_power*u1_amt[2]*pu1_amt[2]*pu21_amt[2]*perks[1][1]
   dps = cps*corn_price
   if (c1[0] == true){
     corn_price = 0.01
   }
   if (c1[0] == false){
-    corn_price = 1+u2_amt[2]*marketing
+    corn_price = 1+u2_amt[2]*marketing*perks[2][1]
   }
   u1_amt[2] = 1 + 0.7*u1_amt[0]*pu11_amt[2]*c2[3]
   u2_amt[2] = 0.25 + 0.15*u2_amt[0]*pu11_amt[2]*c1[3]
@@ -247,25 +266,25 @@ function open_farm(){
   farm.removeAttribute("hidden")
   upg.setAttribute("hidden", true)
   chal.setAttribute("hidden", true)
-  perks.setAttribute("hidden", true)
+  p_class.setAttribute("hidden", true)
 }
 
 function open_upgrades(){
   farm.setAttribute("hidden", true)
   upg.removeAttribute("hidden")
   chal.setAttribute("hidden", true)
-  perks.setAttribute("hidden", true)
+  p_class.setAttribute("hidden", true)
 }
 
 function open_challenges(){
   farm.setAttribute("hidden", true)
   upg.setAttribute("hidden", true)
   chal.removeAttribute("hidden")
-  perks.setAttribute("hidden", true)
+  p_class.setAttribute("hidden", true)
 }
 
 function open_perks(){
-  perks.removeAttribute("hidden")
+  p_class.removeAttribute("hidden")
   upg.setAttribute("hidden", true)
   chal.setAttribute("hidden", true)
   farm.setAttribute("hidden", true)
@@ -305,13 +324,13 @@ function buyMarketing(){
 }
 
 function u1(){
-  if ((balance >= u1_amt[1]) && (u1_amt[0] < (pu2_amt[2]+pu22_amt[2]))){
+  if ((balance >= u1_amt[1]) && (u1_amt[0] < (pu2_amt[2]+pu22_amt[2]+perks[3][1]))){
     balance -= u1_amt[1]
     u1_amt[0] += 1
   }
 }
 function u2(){
-  if ((balance >= u2_amt[1]) && (u2_amt[0] < (pu2_amt[2]+pu22_amt[2]))){
+  if ((balance >= u2_amt[1]) && (u2_amt[0] < (pu2_amt[2]+pu22_amt[2]+perks[3][1]))){
     balance -= u2_amt[1]
     u2_amt[0] += 1
   }
@@ -442,6 +461,30 @@ function enter_c2(){
   }
 }
 
+function buy_perk(){
+  if (pp >= perks[0][2]){
+    pp -= perks[0][2]
+    perks[0][2] *= 10
+    perks[0][1] += 1
+    perks[0][0] += 1
+  }
+}
+
+function respec_perk(){
+  perks[0][0] = perks[0][1]
+  perks[1] = [0, 1, 2]
+  perks[2] = [0, 1, 2]
+  perks[3] = [0, 0, 100]
+}
+
+function purchase_perk(n){
+  if (perks[0][0] >= 1){
+    perks[0][0] -= 1
+    perks[n][0] += 1
+    perks[n][1] += perks[n][2]
+  }
+}
+
 function num_format(num) {
   if (num < 1000) {
     return num;
@@ -473,7 +516,7 @@ function num_format(num) {
   if (num >= 10**27 && num < 10**30) {
     return ((num / 10**27).toFixed(2) + " Oc");
   }
-  if (num >= 10**30 && num < 10**33) {ṇ
+  if (num >= 10**30 && num < 10**33) {
     return ((num / 10**30).toFixed(2) + " No");
   }
   if (num >= 10**33 && num < 10**36) {
