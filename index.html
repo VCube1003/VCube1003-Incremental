@@ -118,8 +118,28 @@
   </div>
 </div>
 
-<div class="all_perks" id="perks" hidden>
-  <p>Coming in 5 hours</p>
+<div class="all_perks" id="p_class" hidden>
+  <h3>Perks</h3>
+  <div>Welcome to the Perk Shop! Here you can use your prestige points to buy perks that can be distributed among the below options (they are respeccable)</div>
+  </br>
+  <button onclick=buy_perk()>Buy Perk</button>
+  <div id="perk_cost">Cost: 100B PP</div>
+  </br>
+  <button onclick=respec_perk()>Respec Perks</button>
+  </br>
+  <div id="unspent_perks">Unspent Perks: 0</div>
+  </br>
+  <div id="p1_text">Genetic Engineering - Increases crop yield (1x → 2x)</div>
+  <button onclick=purchase_perk(1)>Buy Perk</button>
+  <div id="p1_spent">Perks Spent: 0</div>
+  </br>
+  <div id="p2_text">Better Ads - Increases marketing power (1x → 2x)</div>
+  <button onclick=purchase_perk(2)>Buy Perk</button>
+  <div id="p2_spent">Perks Spent: 0</div>
+  </br>
+  <div id="p3_text">More Upgrades - Increases upgrade cap (65 → 115)</div>
+  <button onclick=purchase_perk(3)>Buy Perk</button>
+  <div id="p3_spent">Perks Spent: 0</div>
 </div>
 </body>
 <script src="js/script.js"></script>
