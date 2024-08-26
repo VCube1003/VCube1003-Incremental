@@ -154,7 +154,7 @@ function GUIupdate(){
   document.getElementById("pu12_cost").textContent = "Cost: " + Math.round(pu12_amt[1]*100)/100 + " PP"
   document.getElementById("c1_goal").textContent = "Goal: " + num_format(c1[2])
   document.getElementById("c1_completions").textContent = "Completions: (" + c1[1] + "/5)"
-  document.getElementById("c1_reward").textContent = "Challenge Reward: Increase the power of the 'Better Marketing' upgrade (" + c2[3] + "x → " + Math.round((c2[3] + 0.5)*100)/100 + "x)"
+  document.getElementById("c1_reward").textContent = "Challenge Reward: Increase the power of the 'Better Marketing' upgrade (" + c1[3] + "x → " + Math.round((c1[3] + 1.4)*100)/100 + "x)"
   document.getElementById("c2_goal").textContent = "Goal: " + num_format(c2[2])
   document.getElementById("c2_completions").textContent = "Completions: (" + c2[1] + "/5)"
   document.getElementById("c2_reward").textContent = "Challenge Reward: Increase the power of all three 'Genetic Modifications' upgrades (" + c2[3] + "x → " + Math.round((c2[3] + 0.5)*100)/100 + "x)"
